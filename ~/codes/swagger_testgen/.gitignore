@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build and distribution
+*.egg-info/
+dist/
+build/
+
+# Output files
+output/
+
+# IDE
+.vscode/
+.idea/
+
+# Temp files
+*.swp
+*.swo
+
+# OS generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
