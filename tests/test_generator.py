@@ -9,8 +9,8 @@ from ..core.report_generator import ReportGenerator
 @pytest.fixture
 def order_api_parser():
     test_file = str(Path(__file__).parent.parent / "examples" / "order_api.yaml")
-    parser = SwaggerParser(test_file)
-    parser.load_spec()
+    parser = SwaggerParser()
+    parser.parse(test_file)  # Use new parse method
     return parser
 
 def test_normal_case_generation(order_api_parser):

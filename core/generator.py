@@ -1,14 +1,31 @@
 from typing import Dict, List, Any
-from .parser import SwaggerParser
+from .iapi_parser import IApiParser, ApiDefinition
 
 class TestCaseGenerator:
-    def __init__(self, parser: SwaggerParser):
+    def __init__(self, parser: IApiParser):
         self.parser = parser
         
+    def _get_parameters_from_endpoint(self, endpoint: Dict) -> Dict[str, Any]:
+        """Extract parameters from endpoint definition"""
+        params = endpoint.get('parameters', {})
+        return {
+            'path_params': [p for p in params.get('path_params', [])],
+            'query_params': [p for p in params.get('query_params', [])],
+            'header_params': [p for p in params.get('header_params', [])],
+            'body_params': [p for p in params.get('body_params', [])]
+        }
+
     def generate_normal_cases(self, path: str, method: str) -> List[Dict[str, Any]]:
         """Generate normal flow test cases"""
         cases = []
-        params = self.parser.parse_parameters(path, method)
+        # Use the original file path stored in parser
+        api_def = self.parser.api_def
+        endpoint = next((e for e in api_def.endpoints 
+                       if e['path'] == path and e['method'] == method.upper()), None)
+        if not endpoint:
+            return cases
+            
+        params = self._get_parameters_from_endpoint(endpoint)
         
         # Generate case with all required parameters
         case = {
@@ -36,7 +53,13 @@ class TestCaseGenerator:
     def generate_error_cases(self, path: str, method: str) -> List[Dict[str, Any]]:
         """Generate error flow test cases"""
         cases = []
-        params = self.parser.parse_parameters(path, method)
+        api_def = self.parser.api_def
+        endpoint = next((e for e in api_def.endpoints 
+                       if e['path'] == path and e['method'] == method.upper()), None)
+        if not endpoint:
+            return cases
+            
+        params = self._get_parameters_from_endpoint(endpoint)
         
         # Case 1: Missing required parameter
         for param_type, param_list in params.items():
@@ -80,7 +103,13 @@ class TestCaseGenerator:
     def generate_boundary_cases(self, path: str, method: str) -> List[Dict[str, Any]]:
         """Generate boundary value test cases"""
         cases = []
-        params = self.parser.parse_parameters(path, method)
+        api_def = self.parser.api_def
+        endpoint = next((e for e in api_def.endpoints 
+                       if e['path'] == path and e['method'] == method.upper()), None)
+        if not endpoint:
+            return cases
+            
+        params = self._get_parameters_from_endpoint(endpoint)
         
         for param_type, param_list in params.items():
             for param in param_list:
@@ -220,7 +249,13 @@ class TestCaseGenerator:
     def generate_security_cases(self, path: str, method: str) -> List[Dict[str, Any]]:
         """Generate security test cases based on OWASP Top 10"""
         cases = []
-        params = self.parser.parse_parameters(path, method)
+        api_def = self.parser.api_def
+        endpoint = next((e for e in api_def.endpoints 
+                       if e['path'] == path and e['method'] == method.upper()), None)
+        if not endpoint:
+            return cases
+            
+        params = self._get_parameters_from_endpoint(endpoint)
         
         # SQL Injection test cases
         for param_type, param_list in params.items():

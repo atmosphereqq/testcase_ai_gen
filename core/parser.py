@@ -1,21 +1,45 @@
 import yaml
 import json
 from typing import Dict, Any
+from .iapi_parser import IApiParser, ApiDefinition
 
-class SwaggerParser:
-    def __init__(self, swagger_file: str):
-        """Initialize parser with Swagger file path"""
-        self.swagger_file = swagger_file
+class SwaggerParser(IApiParser):
+    def __init__(self):
         self.spec = None
+        self.api_def = None
         
-    def load_spec(self) -> Dict[str, Any]:
-        """Load and parse Swagger/OpenAPI specification"""
-        with open(self.swagger_file, 'r') as f:
-            if self.swagger_file.endswith('.yaml') or self.swagger_file.endswith('.yml'):
+    def can_parse(self, file_path: str) -> bool:
+        """Check if file is Swagger/OpenAPI format"""
+        return (file_path.endswith('.yaml') or 
+               file_path.endswith('.yml') or
+               file_path.endswith('.json'))
+        
+    def parse(self, file_path: str) -> ApiDefinition:
+        """Parse Swagger file into standardized ApiDefinition"""
+        self.api_def = ApiDefinition()
+        
+        # Load spec
+        with open(file_path, 'r') as f:
+            if file_path.endswith('.yaml') or file_path.endswith('.yml'):
                 self.spec = yaml.safe_load(f)
             else:  # assume JSON
                 self.spec = json.load(f)
-        return self.spec
+        
+        # Parse all paths and methods
+        paths = self.spec.get('paths', {})
+        for path, path_item in paths.items():
+            for method in ['get', 'post', 'put', 'delete', 'patch']:
+                if method in path_item:
+                    parameters = self.parse_parameters(path, method)
+                    responses = self.parse_responses(path, method)
+                    self.api_def.add_endpoint(method.upper(), path, parameters, responses)
+        
+        # Parse models/schemas
+        schemas = self.spec.get('components', {}).get('schemas', {})
+        for model_name, schema in schemas.items():
+            self.api_def.add_model(model_name, schema)
+            
+        return self.api_def
     
     def parse_paths(self) -> Dict[str, Dict]:
         """Extract all API paths and their methods"""

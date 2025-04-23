@@ -11,23 +11,23 @@ def main():
     args = parser.parse_args()
 
     # Initialize components
-    swagger_parser = SwaggerParser(args.swagger_file)
-    swagger_parser.load_spec()
+    swagger_parser = SwaggerParser()
     
     test_generator = TestCaseGenerator(swagger_parser)
     report_generator = ReportGenerator(args.output)
 
-    # Generate test cases for all paths
+    # Generate test cases for all endpoints
     test_cases = []
-    paths = swagger_parser.parse_paths()
+    api_def = swagger_parser.parse(args.swagger_file)
     
-    for path, methods in paths.items():
-        for method in methods:
-            if method.lower() in ['get', 'post', 'put', 'delete', 'patch']:
-                test_cases.extend(test_generator.generate_normal_cases(path, method))
-                test_cases.extend(test_generator.generate_error_cases(path, method))
-                test_cases.extend(test_generator.generate_boundary_cases(path, method))
-                test_cases.extend(test_generator.generate_security_cases(path, method))
+    for endpoint in api_def.endpoints:
+        method = endpoint['method'].lower()
+        if method in ['get', 'post', 'put', 'delete', 'patch']:
+            path = endpoint['path']
+            test_cases.extend(test_generator.generate_normal_cases(path, method))
+            test_cases.extend(test_generator.generate_error_cases(path, method))
+            test_cases.extend(test_generator.generate_boundary_cases(path, method))
+            test_cases.extend(test_generator.generate_security_cases(path, method))
 
     # Generate reports
     json_report = report_generator.generate_json_report(test_cases)
