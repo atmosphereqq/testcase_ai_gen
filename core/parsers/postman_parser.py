@@ -1,6 +1,6 @@
 import json
 from typing import Dict, Any
-from .iapi_parser import IApiParser, ApiDefinition
+from core.parsers.iapi_parser import IApiParser, ApiDefinition
 
 class PostmanParser(IApiParser):
     def __init__(self):

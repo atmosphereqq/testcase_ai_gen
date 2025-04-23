@@ -1,6 +1,6 @@
 # API Test Case Generator
 
-Automatically generate test cases from API specifications (Swagger/OpenAPI and Postman formats).
+Automatically generate test cases from API specifications (Swagger/OpenAPI, Postman and Apifox formats).
 
 ## Features
 
@@ -41,11 +41,12 @@ pip install -e .
 
 ## Standalone Usage (Recommended)
 
-Run the tool with any Swagger/OpenAPI or Postman collection file:
+Run the tool with any Swagger/OpenAPI, Postman or Apifox file:
 
 ```bash
 python3 standalone_runner.py path/to/api_spec.yaml
 python3 standalone_runner.py path/to/postman_collection.json
+python3 standalone_runner.py path/to/apifox_api.json
 ```
 
 Example with included sample files:
@@ -56,6 +57,9 @@ python3 standalone_runner.py examples/petstore.yaml
 
 # Postman example
 python3 standalone_runner.py examples/postman_collection.json
+
+# Apifox example
+python3 standalone_runner.py examples/apifox_api.json
 ```
 
 Expected output:
@@ -84,7 +88,7 @@ Requirements:
 
 - [x] Swagger/OpenAPI support
 - [x] Postman collection support
-- [ ] Apifox format support
+- [x] Apifox format support
 - [ ] More test generation strategies
 
 ## Development

@@ -1,5 +1,5 @@
 from typing import Dict, List, Any
-from .iapi_parser import IApiParser, ApiDefinition
+from core.parsers.iapi_parser import IApiParser, ApiDefinition
 
 class TestCaseGenerator:
     def __init__(self, parser: IApiParser):

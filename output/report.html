@@ -14,49 +14,42 @@
 </head>
 <body>
     <h1>Swagger Test Cases Report</h1>
-    <p>Generated 6 test cases</p>
+    <p>Generated 5 test cases</p>
     
     
     <div class="test-case normal">
-        <h3>GET_v2_pet_1_normal</h3>
+        <h3>GET__pet_{petId}_normal</h3>
         <p><strong>Type:</strong> normal</p>
-        <p><strong>Request:</strong> GET v2/pet/1</p>
-        <p><strong>Expected Status:</strong> 200</p>
-    </div>
-    
-    <div class="test-case normal">
-        <h3>POST_v2_pet_normal</h3>
-        <p><strong>Type:</strong> normal</p>
-        <p><strong>Request:</strong> POST v2/pet</p>
+        <p><strong>Request:</strong> GET /pet/{petId}</p>
         <p><strong>Expected Status:</strong> 200</p>
     </div>
     
     <div class="test-case error">
-        <h3>POST_v2_pet_missing_Content-Type</h3>
+        <h3>GET__pet_{petId}_missing_petId</h3>
         <p><strong>Type:</strong> error</p>
-        <p><strong>Request:</strong> POST v2/pet</p>
+        <p><strong>Request:</strong> GET /pet/{petId}</p>
         <p><strong>Expected Status:</strong> 400</p>
     </div>
     
-    <div class="test-case error">
-        <h3>POST_v2_pet_missing_id</h3>
-        <p><strong>Type:</strong> error</p>
-        <p><strong>Request:</strong> POST v2/pet</p>
-        <p><strong>Expected Status:</strong> 400</p>
+    <div class="test-case boundary">
+        <h3>GET__pet_{petId}_zero_petId</h3>
+        <p><strong>Type:</strong> boundary</p>
+        <p><strong>Request:</strong> GET /pet/{petId}</p>
+        <p><strong>Expected Status:</strong> 200</p>
     </div>
     
-    <div class="test-case error">
-        <h3>POST_v2_pet_missing_name</h3>
-        <p><strong>Type:</strong> error</p>
-        <p><strong>Request:</strong> POST v2/pet</p>
-        <p><strong>Expected Status:</strong> 400</p>
+    <div class="test-case normal">
+        <h3>POST__pet_normal</h3>
+        <p><strong>Type:</strong> normal</p>
+        <p><strong>Request:</strong> POST /pet</p>
+        <p><strong>Expected Status:</strong> 200</p>
     </div>
     
-    <div class="test-case error">
-        <h3>POST_v2_pet_missing_status</h3>
-        <p><strong>Type:</strong> error</p>
-        <p><strong>Request:</strong> POST v2/pet</p>
-        <p><strong>Expected Status:</strong> 400</p>
+    <div class="test-case boundary">
+        <h3>POST__pet_zero_id</h3>
+        <p><strong>Type:</strong> boundary</p>
+        <p><strong>Request:</strong> POST /pet</p>
+        <p><strong>Expected Status:</strong> 200</p>
     </div>
     
 </body>

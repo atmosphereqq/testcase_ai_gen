@@ -1,7 +1,8 @@
 import argparse
 from pathlib import Path
-from swagger_testgen.core.parser import SwaggerParser
-from swagger_testgen.core.postman_parser import PostmanParser
+from swagger_testgen.core.parsers.parser import SwaggerParser
+from swagger_testgen.core.parsers.postman_parser import PostmanParser
+from swagger_testgen.core.parsers.apifox_parser import ApifoxParser
 from swagger_testgen.core.generator import TestCaseGenerator
 from swagger_testgen.core.report_generator import ReportGenerator
 
@@ -12,7 +13,9 @@ def main():
     args = parser.parse_args()
 
     # Initialize appropriate parser
-    if args.swagger_file.endswith('.json'):
+    if args.swagger_file.endswith('apifox_api.json'):
+        parser = ApifoxParser()
+    elif args.swagger_file.endswith('.json'):
         parser = PostmanParser()
     else:
         parser = SwaggerParser()

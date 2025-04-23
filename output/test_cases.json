@@ -1,88 +1,66 @@
 [
   {
-    "name": "GET_v2_pet_1_normal",
+    "name": "GET__pet_{petId}_normal",
     "type": "normal",
     "request": {
       "method": "GET",
-      "path": "v2/pet/1",
-      "parameters": {}
+      "path": "/pet/{petId}",
+      "parameters": {
+        "petId": 123
+      }
     },
     "expect": {
       "status": 200
     }
   },
   {
-    "name": "POST_v2_pet_normal",
+    "name": "GET__pet_{petId}_missing_petId",
+    "type": "error",
+    "request": {
+      "method": "GET",
+      "path": "/pet/{petId}",
+      "parameters": {}
+    },
+    "expect": {
+      "status": 400
+    }
+  },
+  {
+    "name": "GET__pet_{petId}_zero_petId",
+    "type": "boundary",
+    "request": {
+      "method": "GET",
+      "path": "/pet/{petId}",
+      "parameters": {
+        "petId": 0
+      }
+    },
+    "expect": {
+      "status": 200
+    }
+  },
+  {
+    "name": "POST__pet_normal",
     "type": "normal",
     "request": {
       "method": "POST",
-      "path": "v2/pet",
-      "parameters": {
-        "Content-Type": "sample_value",
-        "id": "sample_value",
-        "name": "sample_value",
-        "status": "sample_value"
-      }
+      "path": "/pet",
+      "parameters": {}
     },
     "expect": {
       "status": 200
     }
   },
   {
-    "name": "POST_v2_pet_missing_Content-Type",
-    "type": "error",
+    "name": "POST__pet_zero_id",
+    "type": "boundary",
     "request": {
       "method": "POST",
-      "path": "v2/pet",
+      "path": "/pet",
       "parameters": {}
     },
     "expect": {
-      "status": 400
-    }
-  },
-  {
-    "name": "POST_v2_pet_missing_id",
-    "type": "error",
-    "request": {
-      "method": "POST",
-      "path": "v2/pet",
-      "parameters": {
-        "name": "sample_value",
-        "status": "sample_value"
-      }
-    },
-    "expect": {
-      "status": 400
-    }
-  },
-  {
-    "name": "POST_v2_pet_missing_name",
-    "type": "error",
-    "request": {
-      "method": "POST",
-      "path": "v2/pet",
-      "parameters": {
-        "id": "sample_value",
-        "status": "sample_value"
-      }
-    },
-    "expect": {
-      "status": 400
-    }
-  },
-  {
-    "name": "POST_v2_pet_missing_status",
-    "type": "error",
-    "request": {
-      "method": "POST",
-      "path": "v2/pet",
-      "parameters": {
-        "id": "sample_value",
-        "name": "sample_value"
-      }
-    },
-    "expect": {
-      "status": 400
+      "status": 200
     }
   }
 ]

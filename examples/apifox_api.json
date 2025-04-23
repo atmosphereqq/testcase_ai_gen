@@ -1,0 +1,78 @@
+{
+  "name": "Petstore API",
+  "description": "API for managing pets",
+  "version": "1.0.0",
+  "servers": [
+    {
+      "url": "http://petstore.swagger.io/v2"
+    }
+  ],
+  "interfaces": [
+    {
+      "name": "Get pet by ID",
+      "method": "GET",
+      "path": "/pet/{petId}",
+      "parameters": [
+        {
+          "name": "petId",
+          "in": "path",
+          "required": true,
+          "type": "integer"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "successful operation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Add new pet",
+      "method": "POST",
+      "path": "/pet",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "successful operation"
+        }
+      }
+    }
+  ]
+}
