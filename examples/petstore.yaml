@@ -1,0 +1,54 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Swagger Petstore
+  description: A sample API for testing
+paths:
+  /pets:
+    get:
+      summary: List all pets
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+      responses:
+        '200':
+          description: A paged array of pets
+    post:
+      summary: Create a pet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 100
+                tag:
+                  type: string
+              required:
+                - name
+      responses:
+        '201':
+          description: Created
+          
+  /pets/{petId}:
+    get:
+      summary: Info for a specific pet
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request

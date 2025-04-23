@@ -1,0 +1,13 @@
+README.md
+setup.py
+core/__init__.py
+core/generator.py
+core/parser.py
+core/report_generator.py
+swagger_testgen.egg-info/PKG-INFO
+swagger_testgen.egg-info/SOURCES.txt
+swagger_testgen.egg-info/dependency_links.txt
+swagger_testgen.egg-info/entry_points.txt
+swagger_testgen.egg-info/requires.txt
+swagger_testgen.egg-info/top_level.txt
+tests/test_generator.py

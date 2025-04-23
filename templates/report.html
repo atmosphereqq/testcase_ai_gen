@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Swagger Test Cases Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        .test-case { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+        .normal { background-color: #e6f7ff; }
+        .error { background-color: #ffebee; }
+        .boundary { background-color: #fff8e1; }
+        .security { background-color: #e8f5e9; }
+    </style>
+</head>
+<body>
+    <h1>Swagger Test Cases Report</h1>
+    <p>Generated {{ test_cases|length }} test cases</p>
+    
+    {% for test in test_cases %}
+    <div class="test-case {{ test.type }}">
+        <h3>{{ test.name }}</h3>
+        <p><strong>Type:</strong> {{ test.type }}</p>
+        <p><strong>Request:</strong> {{ test.request.method }} {{ test.request.path }}</p>
+        <p><strong>Expected Status:</strong> {{ test.expect.status }}</p>
+    </div>
+    {% endfor %}
+</body>
+</html>

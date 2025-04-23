@@ -1,0 +1,2 @@
+[console_scripts]
+swagger-testgen = swagger_testgen.main:main

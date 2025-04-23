@@ -1,0 +1,108 @@
+[
+  {
+    "name": "GET__pets_normal",
+    "type": "normal",
+    "request": {
+      "method": "GET",
+      "path": "/pets",
+      "parameters": {
+        "limit": "sample_value"
+      }
+    },
+    "expect": {
+      "status": 200
+    }
+  },
+  {
+    "name": "GET__pets_missing_limit",
+    "type": "error",
+    "request": {
+      "method": "GET",
+      "path": "/pets",
+      "parameters": {}
+    },
+    "expect": {
+      "status": 400
+    }
+  },
+  {
+    "name": "POST__pets_normal",
+    "type": "normal",
+    "request": {
+      "method": "POST",
+      "path": "/pets",
+      "parameters": {
+        "name": "sample_value"
+      }
+    },
+    "expect": {
+      "status": 200
+    }
+  },
+  {
+    "name": "POST__pets_missing_name",
+    "type": "error",
+    "request": {
+      "method": "POST",
+      "path": "/pets",
+      "parameters": {}
+    },
+    "expect": {
+      "status": 400
+    }
+  },
+  {
+    "name": "POST__pets_min_length_name",
+    "type": "boundary",
+    "request": {
+      "method": "POST",
+      "path": "/pets",
+      "parameters": {
+        "name": "a"
+      }
+    },
+    "expect": {
+      "status": 200
+    }
+  },
+  {
+    "name": "POST__pets_max_length_name",
+    "type": "boundary",
+    "request": {
+      "method": "POST",
+      "path": "/pets",
+      "parameters": {
+        "name": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "expect": {
+      "status": 200
+    }
+  },
+  {
+    "name": "GET__pets_{petId}_normal",
+    "type": "normal",
+    "request": {
+      "method": "GET",
+      "path": "/pets/{petId}",
+      "parameters": {
+        "petId": "sample_value"
+      }
+    },
+    "expect": {
+      "status": 200
+    }
+  },
+  {
+    "name": "GET__pets_{petId}_missing_petId",
+    "type": "error",
+    "request": {
+      "method": "GET",
+      "path": "/pets/{petId}",
+      "parameters": {}
+    },
+    "expect": {
+      "status": 400
+    }
+  }
+]

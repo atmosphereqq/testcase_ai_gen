@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: swagger_testgen
+Version: 1.0.0
+Requires-Python: >=3.8
+Requires-Dist: PyYAML>=5.4.1
+Requires-Dist: jsonschema>=4.0.0
+Requires-Dist: requests>=2.26.0
+Requires-Dist: pytest>=7.0.0
+Requires-Dist: jinja2>=3.0.0
+Dynamic: requires-dist
+Dynamic: requires-python
