@@ -1,0 +1,46 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890",
+    "name": "Petstore API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Pet by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://petstore.swagger.io/v2/pet/1",
+          "protocol": "http",
+          "host": ["petstore","swagger","io"],
+          "path": ["v2","pet","1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Pet",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": 1,\n  \"name\": \"doggie\",\n  \"status\": \"available\"\n}"
+        },
+        "url": {
+          "raw": "http://petstore.swagger.io/v2/pet",
+          "protocol": "http",
+          "host": ["petstore","swagger","io"],
+          "path": ["v2","pet"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

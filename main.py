@@ -1,6 +1,7 @@
 import argparse
 from pathlib import Path
 from swagger_testgen.core.parser import SwaggerParser
+from swagger_testgen.core.postman_parser import PostmanParser
 from swagger_testgen.core.generator import TestCaseGenerator
 from swagger_testgen.core.report_generator import ReportGenerator
 
@@ -10,15 +11,18 @@ def main():
     parser.add_argument('-o', '--output', default='output', help='Output directory')
     args = parser.parse_args()
 
-    # Initialize components
-    swagger_parser = SwaggerParser()
+    # Initialize appropriate parser
+    if args.swagger_file.endswith('.json'):
+        parser = PostmanParser()
+    else:
+        parser = SwaggerParser()
     
-    test_generator = TestCaseGenerator(swagger_parser)
+    test_generator = TestCaseGenerator(parser)
     report_generator = ReportGenerator(args.output)
 
     # Generate test cases for all endpoints
     test_cases = []
-    api_def = swagger_parser.parse(args.swagger_file)
+    api_def = parser.parse(args.swagger_file)
     
     for endpoint in api_def.endpoints:
         method = endpoint['method'].lower()

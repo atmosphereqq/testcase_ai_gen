@@ -1,12 +1,27 @@
 [
   {
-    "name": "GET__pets_normal",
+    "name": "GET_v2_pet_1_normal",
     "type": "normal",
     "request": {
       "method": "GET",
-      "path": "/pets",
+      "path": "v2/pet/1",
+      "parameters": {}
+    },
+    "expect": {
+      "status": 200
+    }
+  },
+  {
+    "name": "POST_v2_pet_normal",
+    "type": "normal",
+    "request": {
+      "method": "POST",
+      "path": "v2/pet",
       "parameters": {
-        "limit": "sample_value"
+        "Content-Type": "sample_value",
+        "id": "sample_value",
+        "name": "sample_value",
+        "status": "sample_value"
       }
     },
     "expect": {
@@ -14,11 +29,11 @@
     }
   },
   {
-    "name": "GET__pets_missing_limit",
+    "name": "POST_v2_pet_missing_Content-Type",
     "type": "error",
     "request": {
-      "method": "GET",
-      "path": "/pets",
+      "method": "POST",
+      "path": "v2/pet",
       "parameters": {}
     },
     "expect": {
@@ -26,80 +41,45 @@
     }
   },
   {
-    "name": "POST__pets_normal",
-    "type": "normal",
+    "name": "POST_v2_pet_missing_id",
+    "type": "error",
     "request": {
       "method": "POST",
-      "path": "/pets",
+      "path": "v2/pet",
       "parameters": {
+        "name": "sample_value",
+        "status": "sample_value"
+      }
+    },
+    "expect": {
+      "status": 400
+    }
+  },
+  {
+    "name": "POST_v2_pet_missing_name",
+    "type": "error",
+    "request": {
+      "method": "POST",
+      "path": "v2/pet",
+      "parameters": {
+        "id": "sample_value",
+        "status": "sample_value"
+      }
+    },
+    "expect": {
+      "status": 400
+    }
+  },
+  {
+    "name": "POST_v2_pet_missing_status",
+    "type": "error",
+    "request": {
+      "method": "POST",
+      "path": "v2/pet",
+      "parameters": {
+        "id": "sample_value",
         "name": "sample_value"
       }
-    },
-    "expect": {
-      "status": 200
-    }
-  },
-  {
-    "name": "POST__pets_missing_name",
-    "type": "error",
-    "request": {
-      "method": "POST",
-      "path": "/pets",
-      "parameters": {}
-    },
-    "expect": {
-      "status": 400
-    }
-  },
-  {
-    "name": "POST__pets_min_length_name",
-    "type": "boundary",
-    "request": {
-      "method": "POST",
-      "path": "/pets",
-      "parameters": {
-        "name": "a"
-      }
-    },
-    "expect": {
-      "status": 200
-    }
-  },
-  {
-    "name": "POST__pets_max_length_name",
-    "type": "boundary",
-    "request": {
-      "method": "POST",
-      "path": "/pets",
-      "parameters": {
-        "name": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-      }
-    },
-    "expect": {
-      "status": 200
-    }
-  },
-  {
-    "name": "GET__pets_{petId}_normal",
-    "type": "normal",
-    "request": {
-      "method": "GET",
-      "path": "/pets/{petId}",
-      "parameters": {
-        "petId": "sample_value"
-      }
-    },
-    "expect": {
-      "status": 200
-    }
-  },
-  {
-    "name": "GET__pets_{petId}_missing_petId",
-    "type": "error",
-    "request": {
-      "method": "GET",
-      "path": "/pets/{petId}",
-      "parameters": {}
     },
     "expect": {
       "status": 400
